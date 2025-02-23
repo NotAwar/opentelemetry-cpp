@@ -1,0 +1,54 @@
+name: verify examples workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  bazel-tests:
+    name: Bazel Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Bazel
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bazel
+
+      - name: Run Bazel tests
+        run: |
+          # Assumes BUILD files are configured under examples/
+          bazel test //examples/...
+
+  cmake-tests:
+    name: CMake Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install CMake
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
+      - name: Build and Test CMake Examples
+        run: |
+          # Loop over all immediate subdirectories under examples/
+          for d in examples/*/ ; do
+            if [ -f "$d/CMakeLists.txt" ]; then
+              echo "Building CMake project in $d"
+              mkdir -p "$d/build"
+              pushd "$d/build"
+              cmake ..
+              cmake --build .
+              ctest --output-on-failure || exit 1
+              popd
+            else
+              echo "Skipping $d as no CMakeLists.txt found."
+            fi
+          done
