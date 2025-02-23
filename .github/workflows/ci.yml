@@ -1018,6 +1018,6 @@ jobs:
           sudo apt-get update && sudo apt-get install -y cmake
       - name: Run Examples Verification Script
         run: |
-          chmod +x ci/do_ci_verify_examples.sh
-          ./ci/do_ci_verify_examples.sh
+          chmod +x ci/verify_examples.sh
+          ./ci/verify_examples.sh
 
