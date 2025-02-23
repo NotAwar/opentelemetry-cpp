@@ -10,6 +10,8 @@ jobs:
   bazel-tests:
     name: Bazel Tests
     runs-on: ubuntu-latest
+    permissions:
+        contents: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -27,6 +29,8 @@ jobs:
   cmake-tests:
     name: CMake Tests
     runs-on: ubuntu-latest
+    permissions:
+        contents: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
