@@ -6,12 +6,15 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   bazel-tests:
     name: Bazel Tests
     runs-on: ubuntu-latest
     permissions:
-        contents: read
+      contents: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -30,7 +33,7 @@ jobs:
     name: CMake Tests
     runs-on: ubuntu-latest
     permissions:
-        contents: read
+      contents: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
