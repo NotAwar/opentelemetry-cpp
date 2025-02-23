@@ -17,7 +17,7 @@ Increment the:
 
 * [CI] Added .sh file to run baselisk and Cmake tests
 
-* [CI] Added verify examples job to CI workflow to run 
+* [CI] Added verify examples job to CI workflow to run verify_examples.sh
 
 * [SDK] Add tracer scope configurator
   [#3137](https://github.com/open-telemetry/opentelemetry-cpp/pull/3137)
