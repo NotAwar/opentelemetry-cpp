@@ -1003,3 +1003,21 @@ jobs:
           |
           python ${GITHUB_WORKSPACE}/trace-context/test/test.py http://localhost:30000/test TraceContextTest AdvancedTest
           curl http://localhost:30000/stop
+
+  verify-examples:
+    name: Verify Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+      - name: Setup Environment for Examples
+        run: |
+          sudo apt-get update
+          sudo -E ./ci/setup_ci_environment.sh
+          sudo apt-get update && sudo apt-get install -y cmake
+      - name: Run Examples Verification Script
+        run: |
+          chmod +x ci/do_ci_verify_examples.sh
+          ./ci/do_ci_verify_examples.sh
+
